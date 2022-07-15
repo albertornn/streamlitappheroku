@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun May  8 21:01:15 2022
 
-@author: siddhardhan
-"""
 
 import pickle
 import streamlit as st
@@ -67,10 +63,9 @@ if (selected == 'Predicción de diabetes'):
         Age = st.text_input('Edad de la persona')
     
     
-    # code for Prediction
     diab_diagnosis = ''
     
-    # creating a button for Prediction
+    # Creacion de boton de prediccion
     
     if st.button('Resultado de la prueba'):
         diab_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
