@@ -10,7 +10,7 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 
-# loading the saved models
+# cargando los modelos guardados
 
 diabetes_model = pickle.load(open('diabetes_model.sav', 'rb'))
 
@@ -20,51 +20,51 @@ parkinsons_model = pickle.load(open('parkinsons_model.sav', 'rb'))
 
 
 
-# sidebar for navigation
+# barra lateral para navegación
 with st.sidebar:
     
-    selected = option_menu('Multiple Disease Prediction System',
+    selected = option_menu('Sistema de Predicción de Enfermedades Múltiples - UTP',
                           
-                          ['Diabetes Prediction',
-                           'Heart Disease Prediction',
-                           'Parkinsons Prediction'],
+                          ['Predicción de diabetes',
+                           'Predicción de enfermedades del corazón',
+                           'Predicción de Parkinson'],
                           icons=['activity','heart','person'],
                           default_index=0)
     
     
-# Diabetes Prediction Page
-if (selected == 'Diabetes Prediction'):
+# Página de predicción de diabetes
+if (selected == 'Predicción de diabetes'):
     
-    # page title
-    st.title('Diabetes Prediction using ML')
+# Título de la página
+    st.title('Predicción de diabetes - UTP')
     
     
     # getting the input data from the user
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        Pregnancies = st.text_input('Number of Pregnancies')
+        Pregnancies = st.text_input('Número de embarazos')
         
     with col2:
-        Glucose = st.text_input('Glucose Level')
+        Glucose = st.text_input('Nivel de glucosa')
     
     with col3:
-        BloodPressure = st.text_input('Blood Pressure value')
+        BloodPressure = st.text_input('Valor de la presión arterial')
     
     with col1:
-        SkinThickness = st.text_input('Skin Thickness value')
+        SkinThickness = st.text_input('Valor del grosor de la piel')
     
     with col2:
-        Insulin = st.text_input('Insulin Level')
+        Insulin = st.text_input('Nivel de insulina')
     
     with col3:
-        BMI = st.text_input('BMI value')
+        BMI = st.text_input('valor del IMC')
     
     with col1:
-        DiabetesPedigreeFunction = st.text_input('Diabetes Pedigree Function value')
+        DiabetesPedigreeFunction = st.text_input('Valor de función de pedigrí de diabetes')
     
     with col2:
-        Age = st.text_input('Age of the Person')
+        Age = st.text_input('Edad de la persona')
     
     
     # code for Prediction
@@ -72,92 +72,93 @@ if (selected == 'Diabetes Prediction'):
     
     # creating a button for Prediction
     
-    if st.button('Diabetes Test Result'):
+    if st.button('Resultado de la prueba'):
         diab_prediction = diabetes_model.predict([[Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age]])
         
         if (diab_prediction[0] == 1):
-          diab_diagnosis = 'The person is diabetic'
+          diab_diagnosis = 'La persona es diabética'
         else:
-          diab_diagnosis = 'The person is not diabetic'
+          diab_diagnosis = 'La persona no es diabética'
         
     st.success(diab_diagnosis)
 
 
 
 
-# Heart Disease Prediction Page
-if (selected == 'Heart Disease Prediction'):
+# Página de predicción de enfermedades del corazón
+if (selected == 'Predicción de enfermedades del corazón'):
     
-    # page title
-    st.title('Heart Disease Prediction using ML')
+
+# Título de la página
+    st.title('Predicción de enfermedades cardíacas ')
     
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        age = st.text_input('Age')
+        age = st.text_input('Años')
         
     with col2:
-        sex = st.text_input('Sex')
+        sex = st.text_input('Sexo')
         
     with col3:
-        cp = st.text_input('Chest Pain types')
+        cp = st.text_input('Tipos de dolor de pecho')
         
     with col1:
-        trestbps = st.text_input('Resting Blood Pressure')
+        trestbps = st.text_input('Presión arterial en reposo')
         
     with col2:
-        chol = st.text_input('Serum Cholestoral in mg/dl')
+        chol = st.text_input('Colesterol sérico en mg/dl')
         
     with col3:
-        fbs = st.text_input('Fasting Blood Sugar > 120 mg/dl')
+        fbs = st.text_input('Azúcar en sangre en ayunas > 120 mg/dl')
         
     with col1:
-        restecg = st.text_input('Resting Electrocardiographic results')
+        restecg = st.text_input('Resultados electrocardiográficos en reposo')
         
     with col2:
-        thalach = st.text_input('Maximum Heart Rate achieved')
+        thalach = st.text_input('Frecuencia cardíaca máxima alcanzada')
         
     with col3:
-        exang = st.text_input('Exercise Induced Angina')
+        exang = st.text_input('Angina inducida por ejercicio')
         
     with col1:
-        oldpeak = st.text_input('ST depression induced by exercise')
+        oldpeak = st.text_input('Depresión del ST inducida por el ejercicio')
         
     with col2:
-        slope = st.text_input('Slope of the peak exercise ST segment')
+        slope = st.text_input('Pendiente del segmento ST de ejercicio máximo')
         
     with col3:
-        ca = st.text_input('Major vessels colored by flourosopy')
+        ca = st.text_input('Grandes vasos coloreados por fluoroscopia')
         
     with col1:
-        thal = st.text_input('thal: 0 = normal; 1 = fixed defect; 2 = reversable defect')
+        thal = st.text_input('tal: 0 = normal; 1 = defecto fijo; 2 = defecto reversible')
         
         
      
      
-    # code for Prediction
+# código para Predicción
     heart_diagnosis = ''
     
-    # creating a button for Prediction
+  # creando un botón para Predicción
     
-    if st.button('Heart Disease Test Result'):
+    if st.button('Resultado de la prueba'):
         heart_prediction = heart_disease_model.predict([[age, sex, cp, trestbps, chol, fbs, restecg,thalach,exang,oldpeak,slope,ca,thal]])                          
         
         if (heart_prediction[0] == 1):
-          heart_diagnosis = 'The person is having heart disease'
+          heart_diagnosis = 'La persona tiene una enfermedad cardíaca.'
         else:
-          heart_diagnosis = 'The person does not have any heart disease'
+          heart_diagnosis = 'La persona no tiene ninguna enfermedad del corazón.'
         
     st.success(heart_diagnosis)
         
     
     
 
-# Parkinson's Prediction Page
-if (selected == "Parkinsons Prediction"):
+# Página de predicción de Parkinson
+if (selected == "Predicción de Parkinson"):
     
     # page title
-    st.title("Parkinson's Disease Prediction using ML")
+    st.title("Predicción de la enfermedad de Parkinson")
     
     col1, col2, col3, col4, col5 = st.columns(5)  
     
@@ -229,17 +230,17 @@ if (selected == "Parkinsons Prediction"):
         
     
     
-    # code for Prediction
+# código para Predicción
     parkinsons_diagnosis = ''
     
-    # creating a button for Prediction    
-    if st.button("Parkinson's Test Result"):
+# creando un botón para Predicción
+    if st.button("Resultado de la prueba de Parkinson"):
         parkinsons_prediction = parkinsons_model.predict([[fo, fhi, flo, Jitter_percent, Jitter_Abs, RAP, PPQ,DDP,Shimmer,Shimmer_dB,APQ3,APQ5,APQ,DDA,NHR,HNR,RPDE,DFA,spread1,spread2,D2,PPE]])                          
         
         if (parkinsons_prediction[0] == 1):
-          parkinsons_diagnosis = "The person has Parkinson's disease"
+          parkinsons_diagnosis = "La persona tiene la enfermedad de Parkinson."
         else:
-          parkinsons_diagnosis = "The person does not have Parkinson's disease"
+          parkinsons_diagnosis = "La persona no tiene la enfermedad de Parkinson."
         
     st.success(parkinsons_diagnosis)
 
